@@ -1,0 +1,119 @@
+import math
+
+def display_menu():
+    print("""
+    Choose an option:
+    \t1. Enter radius
+    \t2. Display radius
+    \t3. Display diameter
+    \t4. Display area
+    \t5. Display perimeter
+    \t6. Exit
+    """)
+    
+    while True:
+        choice = input("Your Choice: ")
+        try:
+            choice = int(choice)
+            if choice not in [1, 2, 3, 4, 5, 6]:
+                print("Invalid Command")
+            else:
+               break 
+        except:
+            print("Invalid Command")
+    
+    if choice == 1:
+        radius()
+    elif choice == 2:
+        dis_rad()
+    elif choice == 3:
+        dis_dia()
+    elif choice == 4:
+        dis_ar()
+    elif choice == 5:
+        dis_per()
+    else:
+        ex()
+    
+    
+def radius():
+    while True:
+        radius = input("Radius: ")
+        try:
+            radius = float(radius)
+            if radius < 0:
+                print("Input Invalid")
+            else:
+                break
+        except:
+            print("Invalid Input")
+    return radius
+    
+def dis_rad():
+    rad = radius()
+    print(rad)
+    
+def dis_dia():
+    dis_d = Circle()
+    rad = radius()
+    if rad > 0:
+        dis_d.rad = rad
+        print(dis_d.get_diameter())
+    else:
+        print("Invalid Input")
+        
+def dis_ar():
+    dis_a = Circle()
+    rad = radius()
+    if rad > 0:
+        dis_a.rad = rad
+        print(dis_a.get_area())
+    else:
+        print("Invalid Input")
+
+def dis_per():
+    dis_p = Circle()
+    rad = radius()
+    if rad > 0:
+        dis_p.rad = rad
+        print(dis_p.get_perimeter())
+    else:
+        print("Invalid Input")        
+
+def ex():
+    pass
+
+class Circle:
+    def __intit__(self):
+        self._radius = None
+        
+    @property
+    def rad(self):
+        return self._radius
+        
+    @rad.setter
+    def rad(self, value):
+        if value > 0:
+            self._radius = value
+        else:
+            raise ValueError("Value Error")
+            
+    def get_diameter(self):
+        return 2 * self._radius
+    
+    def get_area(self):
+        return round(math.pi * self._radius**2, 2)
+        
+    def get_perimeter(self):
+        return round(2 * math.pi * self._radius, 2)
+
+display_menu()
+while True:
+    cmd = input("Do you want to calculate more? if yes type 'y' else type 'n': ").lower()
+    if cmd not in ['y', 'n']:
+        print("Invalid Command. Try Again.")
+    else:
+        if cmd == 'y':
+            display_menu()
+        else:
+            break
